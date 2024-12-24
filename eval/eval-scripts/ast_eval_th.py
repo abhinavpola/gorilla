@@ -15,6 +15,7 @@
 import argparse
 import json
 from tree_sitter import Language, Parser
+import tree_sitter_python as tspython
 import concurrent.futures
 
 
@@ -29,10 +30,10 @@ def get_all_sub_trees(root_node):
         cur_node, cur_depth = node_stack.pop()
         if cur_node.child_count > 0:
             sub_tree_sexp_list.append(
-                [cur_node.sexp(), cur_depth, cur_node, cur_node.children[0].text]
+                [str(cur_node), cur_depth, cur_node, cur_node.children[0].text]
             )
         else:
-            sub_tree_sexp_list.append([cur_node.sexp(), cur_depth, cur_node, None])
+            sub_tree_sexp_list.append([str(cur_node), cur_depth, cur_node, None])
         for child_node in cur_node.children:
             if len(child_node.children) != 0:
                 depth = cur_depth + 1
@@ -42,9 +43,8 @@ def get_all_sub_trees(root_node):
 
 # Parse the program into AST trees
 def ast_parse(candidate, lang="python"):
-    LANGUAGE = Language("codebleu/parser/my-languages.so", lang)
-    parser = Parser()
-    parser.set_language(LANGUAGE)
+    LANGUAGE = Language(tspython.language())
+    parser = Parser(LANGUAGE)
 
     candidate_tree = parser.parse(bytes(candidate, "utf8")).root_node
     return candidate_tree

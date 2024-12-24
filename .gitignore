@@ -37,3 +37,6 @@ berkeley-function-call-leaderboard/utils/ground_truth_conversation/
 
 # Ignore the wandb cache:
 **/wandb/
+
+env
+.conda_env

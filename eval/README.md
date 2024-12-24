@@ -1,3 +1,7 @@
+# FORKED VERSION
+* Made some changes to run with python 3.11 and the new OpenAI/Anthropic APIs
+
+# ORIGINAL README
 # Gorilla
 
 <img src="https://github.com/ShishirPatil/gorilla/blob/gh-pages/assets/img/logo.png" width=50% height=50%>
